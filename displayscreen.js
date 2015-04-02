@@ -5,19 +5,7 @@ var datesToText = [ "zero", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8t
 
 function loadEvents() {
 	var data = new Array();
-	// get codebase data
-	$.ajax({
-		type : "GET",
-		dataType : "jsonp",
-		url : "http://codebasehouseevents.hasacalendar.co.uk/api1/event/jsonp?callback=?",
-		success: function(data1){
-			// add url for logo for this source
-			for(i in data1.data) {
-				if (!data1.data[i].deleted) {
-					data1.data[i].sourcelogo="codebase.square.png";
-					data.push(data1.data[i]);
-				}
-			}
+
 			// get Open Tech Calendar data
 			$.ajax({
 				type : "GET",
@@ -31,16 +19,7 @@ function loadEvents() {
 							data.push(data2.data[i]);
 						}
 					}
-					// sort by start time
-					data = data.sort(function(a,b) {
-						if (a.start.timestamp == b.start.timestamp) {
-							return 0;
-						} else if (a.start.timestamp > b.start.timestamp) {
-							return 1;
-						} else {
-							return -1;
-						}
-					});
+					
 					// draw the data!
 					var today = new Date();
 					var daysOfWeek = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -60,8 +39,6 @@ function loadEvents() {
 					}
 				}
 			});
-		}
-	});
 
 
 }
